@@ -6,10 +6,16 @@ PORT = 2222
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     
     s.connect((HOST, PORT))
+    registration_request = HOST
+    s.sendall(bytes(registration_request, encoding='utf-8'))
+
     while True:
-        message = input()
-        s.sendall(bytes(message, encoding='utf-8'))
+        message = s.recv(1024).decode('utf-8')
         if message == "stop":
             break
+        if message:
+            print(f"Execute this: \"{message}\"")
+        else:
+            print(f"Error with recieving command")
 
 print("Done")

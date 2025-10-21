@@ -7,13 +7,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
     connection, address = s.accept()
+    client_host = connection.recv(1024).decode('utf-8')
+
     with connection:
         while True:
-            message = connection.recv(1024).decode('utf-8')
+            message = input()
+            connection.send(bytes(message, encoding='utf-8'))
             if message == "stop":
                 break
-            if message:
-                print(f"Got message from {address[0]} on port {address[1]}\nMessage: \"{message}\"")
-            else:
-                print(f"Error with recieving the data from {address}")
+
 print("Done")

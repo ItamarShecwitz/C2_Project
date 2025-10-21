@@ -3,6 +3,10 @@ import socket
 SERVER_HOST = "127.0.0.1"
 PORT = 2222
 
+MAX_BYTES_REPONSE = 1024
+ENCODING = 'utf-8'
+STOP_WORD = "stop"
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
     # Binding the server's host.
@@ -11,7 +15,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # Establish new connection.
     s.listen()
     connection, address = s.accept()
-    client_host = connection.recv(1024).decode('utf-8')
+    client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
     with connection:
 
@@ -20,16 +24,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
             # Sending the message to the client.
             message = input()
-            
+
             if message:
-                connection.send(bytes(message, encoding='utf-8'))
+                connection.send(bytes(message, encoding=ENCODING))
 
                 # If the message is stop, stop the session.
-                if message == "stop":
+                if message == STOP_WORD:
                     break
 
                 # Get the response from the client (stdout and stderr), and print it.
-                response = connection.recv(1024).decode('utf-8')
+                response = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
                 print(response)
 
 print("Done")

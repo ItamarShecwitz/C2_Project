@@ -1,4 +1,5 @@
 import socket
+import logging
 
 SERVER_HOST = "127.0.0.1"
 PORT = 2222
@@ -21,9 +22,9 @@ def bind_and_listen(socket_object, server_host, port):
 
 
 def create_session_server(socket_object):
-    connection, _ = socket_object.accept()
+    connection, address = socket_object.accept()
     client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-    return connection
+    return (connection, address, client_host)
 
 def send_new_message(connection):
     # Sending the message to the client.
@@ -42,17 +43,24 @@ def get_output(connection):
 
 
 def main():
+
+    #  Create logger
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(format='%(asctime)s - Session: %(address)s (%(session)s) - %(message)s', level=logging.INFO)
+
+
+
     with create_tcp_socket() as s:
 
         bind_and_listen(s, SERVER_HOST, PORT)
 
-        connection = create_session_server(s)
+        connection, address, client_host = create_session_server(s)
         
         with connection:
 
             # Running until "stop" is sent.
             while True:
-
+                logger.info("Now getting commands...", extra={'address': client_host, 'session': address[1]})
                 message = send_new_message(connection)
 
                 # If the message is stop, stop the session.

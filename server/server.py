@@ -8,6 +8,34 @@ MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
 
+class Session():
+    
+    id_counter = 1
+
+    def __init__(self, socket_object):
+        connection, _ = socket_object.accept()
+
+        self.id = Session.id_counter
+        Session.id_counter += 1
+
+        self.connection = connection
+        self.client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
+
+    def send_new_message(self):
+        # Sending the message to the client.
+        message = input()
+
+        if message:
+            self.connection.send(bytes(message, encoding=ENCODING))
+
+        return message
+
+
+    def get_output(self):
+        # Get the response from the client (stdout and stderr), and print it.
+        return self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
 
 def create_tcp_socket():
     return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -20,54 +48,38 @@ def bind_and_listen(socket_object, server_host, port):
     # Establish new connection.
     socket_object.listen()
 
+  
 
-def create_session_server(socket_object):
-    connection, address = socket_object.accept()
-    client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-    return (connection, address, client_host)
-
-def send_new_message(connection):
-    # Sending the message to the client.
-    message = input()
-
-    if message:
-        connection.send(bytes(message, encoding=ENCODING))
-
-    return message
-
-
-def get_output(connection):
-    # Get the response from the client (stdout and stderr), and print it.
-    response = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-    print(response)
+def print_logging(logger, log, session):
+    logger.info(log, extra={'address': session.client_host, 'session_id': session.id})
 
 
 def main():
 
     #  Create logger
     logger = logging.getLogger(__name__)
-    logging.basicConfig(format='%(asctime)s - Session: %(address)s (%(session)s) - %(message)s', level=logging.INFO)
+    logging.basicConfig(filename='server.log', format='%(asctime)s - %(address)s (%(session_id)s) - %(message)s', level=logging.INFO)
 
 
 
-    with create_tcp_socket() as s:
+    with create_tcp_socket() as server_socket:
 
-        bind_and_listen(s, SERVER_HOST, PORT)
+        bind_and_listen(server_socket, SERVER_HOST, PORT)
 
-        connection, address, client_host = create_session_server(s)
-        
-        with connection:
+        session1 = Session(server_socket)
+
+        with session1.connection:
 
             # Running until "stop" is sent.
             while True:
-                logger.info("Now getting commands...", extra={'address': client_host, 'session': address[1]})
-                message = send_new_message(connection)
+                message = session1.send_new_message()
 
                 # If the message is stop, stop the session.
                 if message == STOP_WORD:
                     break
                 elif message:
-                    get_output(connection)
+                    print(session1.get_output())
+                    
 
     print("Done")
 

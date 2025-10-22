@@ -1,0 +1,221 @@
+2025-10-22 13:11:55,388 - 127.0.0.1 [server] - Server Started
+2025-10-22 13:11:55,390 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 13:12:00,704 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 13:12:03,008 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 13:12:03,086 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 13:12:07,093 - 127.0.0.1 [1] - Sent: dir
+2025-10-22 13:12:07,131 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+22/10/2025  13:11    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+22/10/2025  13:11               138 server.log
+               2 File(s)            149 bytes
+               4 Dir(s)  682,290,827,264 bytes free
+2025-10-22 13:12:12,057 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 13:12:12,057 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:09:42,952 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:09:42,955 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:10:22,930 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:11:16,054 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:11:22,868 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:11:22,868 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:11:30,617 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:11:35,827 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:11:35,895 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:11:35,905 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:12:28,540 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:12:28,540 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:12:34,077 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:12:38,487 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:12:38,578 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:12:38,578 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:13:23,048 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:13:23,052 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:13:28,011 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:13:33,828 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:13:33,870 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:13:33,870 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:14:18,029 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:14:18,029 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:14:24,437 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:14:28,238 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:14:28,348 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:14:28,348 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:16:17,993 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:16:17,993 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:16:26,941 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:16:31,997 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:16:32,124 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:17:46,005 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:17:46,005 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:18:05,074 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:18:05,074 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:18:08,922 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:18:11,170 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:18:11,286 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:18:11,286 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:19:14,500 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:19:14,500 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:19:21,200 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:19:23,502 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:19:23,590 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:19:28,912 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:19:28,912 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:20:19,426 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:20:19,426 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:20:23,471 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:20:25,657 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:20:25,757 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:20:27,551 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:20:27,551 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:22:41,598 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:22:41,599 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:22:47,266 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:22:49,267 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:22:49,358 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:22:53,679 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:22:53,726 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:22:56,402 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:22:56,402 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:23:22,594 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:23:22,594 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:23:26,130 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:23:28,139 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:23:28,220 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:23:30,956 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:23:31,001 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:23:33,295 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:23:33,295 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:25:41,567 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:25:41,567 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:25:45,969 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:25:48,607 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:25:48,676 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:25:51,213 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:25:51,213 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:26:09,405 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:26:09,405 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:26:13,236 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:26:17,080 - 127.0.0.1 [1] - Sent: s
+2025-10-22 18:26:17,140 - 127.0.0.1 [1] - Recived: 's' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:26:18,719 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:26:18,776 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:26:19,899 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:26:20,004 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:26:24,458 - 127.0.0.1 [1] - Sent: echo ""
+2025-10-22 18:26:24,502 - 127.0.0.1 [1] - Recived: ""
+2025-10-22 18:26:28,476 - 127.0.0.1 [1] - Sent: echo 
+2025-10-22 18:26:28,520 - 127.0.0.1 [1] - Recived: ECHO is on.
+2025-10-22 18:26:35,074 - 127.0.0.1 [1] - Sent: echo ''
+2025-10-22 18:26:35,120 - 127.0.0.1 [1] - Recived: ''
+2025-10-22 18:26:42,396 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:26:42,399 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:28:04,892 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:28:04,892 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:28:08,211 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:28:12,126 - 127.0.0.1 [1] - Sent: hi
+2025-10-22 18:28:12,171 - 127.0.0.1 [1] - Recived: 'hi' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:28:14,632 - 127.0.0.1 [1] - Sent: hello
+2025-10-22 18:28:14,684 - 127.0.0.1 [1] - Recived: 'hello' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:28:15,586 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:28:15,714 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:28:16,802 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:28:16,802 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:31:14,763 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:31:14,763 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:34:55,362 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:35:00,391 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:35:00,532 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:35:01,383 - 127.0.0.1 [1] - Sent: dir
+2025-10-22 18:35:01,463 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+22/10/2025  18:18    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+22/10/2025  18:28             9,268 server.log
+22/10/2025  18:22             3,433 server.py
+               3 File(s)         12,712 bytes
+               4 Dir(s)  681,856,626,688 bytes free
+2025-10-22 18:35:04,890 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:35:04,890 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:40:22,831 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:40:22,831 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:40:25,524 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:40:32,849 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:40:32,849 - 127.0.0.1 [1] - Recived: 
+2025-10-22 18:40:40,611 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:40:40,611 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:40:41,176 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:40:42,768 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:40:42,772 - 127.0.0.1 [1] - Recived: 
+2025-10-22 18:40:43,752 - 127.0.0.1 [1] - Sent: dir
+2025-10-22 18:41:02,897 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:41:02,897 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:41:04,057 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:41:05,986 - 127.0.0.1 [1] - Sent: s
+2025-10-22 18:41:06,062 - 127.0.0.1 [1] - Recived: 's' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-22 18:41:07,675 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:41:07,820 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:41:09,256 - 127.0.0.1 [1] - Sent: dir
+2025-10-22 18:41:09,322 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+22/10/2025  18:18    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+22/10/2025  18:40            11,121 server.log
+22/10/2025  18:22             3,433 server.py
+               3 File(s)         14,565 bytes
+               4 Dir(s)  681,855,410,176 bytes free
+2025-10-22 18:41:10,506 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:41:10,506 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:42:22,691 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:42:22,691 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:42:24,488 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:42:40,546 - 127.0.0.1 [1] - Sent: stop
+2025-10-22 18:42:40,546 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:51:32,042 - 127.0.0.1 [server] - Server Started
+2025-10-22 18:51:32,042 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-22 18:51:34,280 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-22 18:51:38,668 - 127.0.0.1 [1] - Sent: whoami
+2025-10-22 18:51:38,807 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-22 18:51:48,027 - 127.0.0.1 [1] - Sent: dir
+2025-10-22 18:51:48,107 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+22/10/2025  18:18    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+22/10/2025  18:51            13,164 server.log
+22/10/2025  18:22             3,433 server.py
+               3 File(s)         16,608 bytes
+               4 Dir(s)  681,855,393,792 bytes free

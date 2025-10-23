@@ -1,0 +1,71 @@
+2025-10-23 18:30:57,402 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:30:57,403 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:31:47,304 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:31:47,304 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:34:24,456 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:34:24,456 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:35:11,185 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:35:11,185 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:35:25,794 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:35:25,794 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:35:42,663 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:35:42,664 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:36:10,346 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:36:33,948 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:37:24,570 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:37:24,570 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:37:24,570 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:37:43,847 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:37:43,847 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:38:10,810 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:38:10,810 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:38:20,628 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:38:20,628 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:40:22,018 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:40:22,018 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:40:49,797 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:40:49,797 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:40:58,724 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:40:58,724 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:42:06,678 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:42:06,679 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:42:39,348 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 18:47:14,424 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:47:14,424 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:47:18,055 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 18:48:32,170 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:48:32,170 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:48:35,553 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 18:48:39,204 - 127.0.0.1 [1] - Sent: dir
+2025-10-23 18:48:39,238 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+23/10/2025  18:30    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+23/10/2025  18:47             2,445 server.log
+22/10/2025  18:22             3,433 server.py
+               3 File(s)          5,889 bytes
+               4 Dir(s)  682,368,466,944 bytes free
+2025-10-23 18:48:41,370 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 18:48:41,436 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 18:49:38,415 - 127.0.0.1 [2] - Client connected: 127.0.0.1 (Session ID: 2)
+2025-10-23 18:49:43,318 - 127.0.0.1 [1] - Sent: dir
+2025-10-23 18:49:43,361 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2
+
+23/10/2025  18:30    <DIR>          .
+21/10/2025  21:08    <DIR>          ..
+22/10/2025  00:23    <DIR>          client
+21/10/2025  21:08                11 README.md
+22/10/2025  00:23    <DIR>          server
+23/10/2025  18:49             3,520 server.log
+22/10/2025  18:22             3,433 server.py
+               3 File(s)          6,964 bytes
+               4 Dir(s)  682,384,973,824 bytes free

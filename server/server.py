@@ -18,6 +18,8 @@ LOG_DEFAULT_LEVEL = logging.INFO
 
 sessions = {}
 main_session_ready = threading.Event()
+server_running = threading.Event()
+server_running.set()
 
 class Session():
     # Represents a single active client session with the server.
@@ -30,8 +32,8 @@ class Session():
 
         self.id = Session.id_counter
         Session.id_counter += 1
-
         self.connection = connection
+        self.connection.settimeout(1.0)
         self.client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
     
@@ -40,19 +42,28 @@ class Session():
 
         message = input(PROMPT)
 
-        if message:
-            self.connection.send(bytes(message, encoding=ENCODING))
-            print_log(logger, f"Sent: {message}", self, False)
-
-        return message
+        try:
+            if message:
+                self.connection.send(bytes(message, encoding=ENCODING))
+                self.connection.send(b'') # Check if the client is alive.
+                print_log(logger, f"Sent: {message}", self, False)
+            return message
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
+            self.stop_connection(logger)
+            return None
 
 
     def get_output(self, logger):
         # Get the response from the client (stdout and stderr), and print it.
+        try:
+            response = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+            print_log(logger, f"Recived: {response}", self)
 
-        response = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-        print_log(logger, f"Recived: {response}", self)
-        return response
+            return response
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
+            self.stop_connection(logger)
+            return None
+        
 
 
     def stop_connection(self, logger):
@@ -60,6 +71,9 @@ class Session():
 
         self.connection.close()
         print_log(logger, f"Client disconnected: {self.client_host} (Session ID: {self.id})", self)
+        sessions.pop(self.id)
+        if len(sessions) == 0:
+            server_running.clear()
 
 
 def create_tcp_socket(logger):
@@ -81,10 +95,9 @@ def bind_and_listen(logger, socket_object, server_host, port):
 
 def wait_for_new_connections(logger, socket_object):
 
-    global sessions
-    global main_session_ready
+    global sessions, main_session_ready
 
-    while True:
+    while server_running.is_set():
         try:
             connection, _ = socket_object.accept()
             new_session = Session(connection)
@@ -94,7 +107,8 @@ def wait_for_new_connections(logger, socket_object):
                 print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session)
             else:
                 print_log(logger, f"\nClient connected: {new_session.client_host} (Session ID: {new_session.id})\n> ", new_session, newline="")
-                
+        except socket.timeout:
+            continue
         except OSError:
             break
 
@@ -103,8 +117,16 @@ def handle_messages_session(logger, current_session):
 
     global sessions
     # Running until "stop" is sent.
-    while True:
+    while server_running.is_set():
+
         message = current_session.send_new_message(logger)
+
+        if len(sessions) == 0: break
+        if current_session.id not in sessions.keys():
+            current_session = next(iter(sessions.values()))
+            print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
+        if not message: continue
+
 
         message_arguments = message.split()
         
@@ -118,9 +140,9 @@ def handle_messages_session(logger, current_session):
                 if len(message_arguments) != 1:
                     print_log(logger, f"Too many arguments, Usage: stop", current_session)
                     continue
-                sessions.pop(current_session.id)
                 current_session.stop_connection(logger)
-                if len(sessions) == 0: break
+                if len(sessions) == 0:
+                    break
                 current_session = next(iter(sessions.values()))
                 print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
 
@@ -128,8 +150,11 @@ def handle_messages_session(logger, current_session):
                 if len(message_arguments) != 1:
                     print_log(logger, f"Too many arguments, Usage: sessions", current_session)
                     continue
+                elif not sessions:
+                    continue
+
                 list_of_sessions = "\n"
-                
+
                 for session in sessions.values():
                     if session.id == current_session.id:
                         list_of_sessions += "* "
@@ -186,9 +211,18 @@ def main():
 
         # wait for at least one session
         wait_for_connections_thread.start()
-        main_session_ready.wait()
+        
+        try:
+            while not main_session_ready.is_set():
+                main_session_ready.wait(timeout=0.5)
+            handle_messages_session(logger, sessions[FIRST_SESSION_ID])
+        except KeyboardInterrupt:
+            pass
+        finally:
+            server_running.clear()
+            for session in list(sessions.values()):
+                session.stop_connection(logger)
 
-        handle_messages_session(logger, sessions[FIRST_SESSION_ID])
 
 if __name__ == "__main__":
     main()

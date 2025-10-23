@@ -98,21 +98,27 @@ def main():
     server_host, port = get_arguments()
 
     client_socket = create_session(CLIENT_HOST, server_host, port)
+    client_socket.settimeout(1.0)
+    with client_socket:
+        try:
+            # Running until "stop" is sent from the server.
+            while True:
+                try:
+                    # Wait, and recieve the message from the server.
+                    message = client_socket.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
+                    # If the message is stop, stop the session.
+                    if message == STOP_WORD:
+                        break
+                    
+                    result = execute_message(client_socket, message)
+                    send_response(client_socket, result)
+                except socket.timeout:
+                    continue
+
+        except KeyboardInterrupt:
+            pass
     
-    # Running until "stop" is sent from the server.
-    while True:
-
-        # Wait, and recieve the message from the server.
-        message = client_socket.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-
-        # If the message is stop, stop the session.
-        if message == STOP_WORD:
-            break
-        
-        result = execute_message(client_socket, message)
-
-        send_response(client_socket, result)
-        
     stop_connection(client_socket)
 
 if __name__ == "__main__":

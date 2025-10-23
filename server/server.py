@@ -7,7 +7,6 @@ SERVER_HOST = "127.0.0.1"
 PORT = 2222
 MAX_BYTES_REPONSE = 65536
 ENCODING = "utf-8"
-NEWLINE = "\n"
 
 PROMPT = "> "
 FIRST_SESSION_ID = 1
@@ -106,7 +105,8 @@ def wait_for_new_connections(logger, socket_object):
                 main_session_ready.set()
                 print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session)
             else:
-                print_log(logger, f"\nClient connected: {new_session.client_host} (Session ID: {new_session.id})\n> ", new_session, newline="")
+                print(f"\nClient connected: {new_session.client_host} (Session ID: {new_session.id})\n> ", end="")
+                print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session, printable=False)
         except socket.timeout:
             continue
         except OSError:
@@ -187,10 +187,10 @@ def create_logger():
     logging.basicConfig(filename=LOG_FILE_NAME, format=LOG_FORMAT, level=LOG_DEFAULT_LEVEL)
     return logger
 
-def print_log(logger, log, session=None, printable=True, newline = NEWLINE):
+def print_log(logger, log, session=None, printable=True):
     # Print the log to a file, if printable is true, then also printing the log to terminal.
 
-    if printable: print(log, end=newline) 
+    if printable: print(log) 
     if session:
         logger.info(log, extra={"address": session.client_host, "session_id": session.id})
     else:

@@ -90,3 +90,307 @@
 2025-10-23 22:17:37,870 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
 2025-10-23 22:17:39,928 - 127.0.0.1 [1] - Sent: stop
 2025-10-23 22:17:39,928 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:21:57,832 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:21:57,832 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:22:00,121 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:22:02,652 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 22:22:02,696 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 22:22:04,111 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 22:22:04,111 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:53:58,179 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:53:58,180 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:54:00,265 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:54:28,983 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:54:28,985 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:54:30,124 - 127.0.0.1 [0] - Client connected: 127.0.0.1 (Session ID: 0)
+2025-10-23 22:55:36,318 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:55:36,318 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:55:38,344 - 127.0.0.1 [0] - Client connected: 127.0.0.1 (Session ID: 0)
+2025-10-23 22:56:40,864 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:56:40,864 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:56:42,969 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:56:52,293 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 22:56:52,347 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 22:56:54,046 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 22:56:54,046 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:01:15,268 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:01:15,268 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:01:54,654 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:01:54,654 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:03:15,348 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:03:15,348 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:03:15,981 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:03:18,649 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:03:18,699 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:03:19,885 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:03:19,885 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:10:52,216 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:10:52,216 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:10:54,234 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:10:57,733 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:10:57,733 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:11:37,747 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:11:37,748 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:11:39,184 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:11:41,306 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:12:30,215 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:12:30,215 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:12:31,503 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:12:33,639 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:12:56,554 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:12:56,554 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:12:57,893 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:13:00,518 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:13:00,518 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:13:48,143 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:13:48,143 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:13:49,658 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:13:52,256 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:13:52,302 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:13:53,009 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:13:53,009 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:14:43,052 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:14:43,052 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:14:51,394 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:14:55,133 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:15:34,319 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:15:34,319 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:18:07,378 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:18:07,378 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:18:09,134 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:18:13,194 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:18:16,271 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:18:16,329 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:18:17,551 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:18:17,551 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:30:16,721 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:30:16,721 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:30:18,927 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:30:21,345 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:30:25,126 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:30:25,182 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:30:26,632 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:30:26,632 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:30:30,438 - 127.0.0.1 [2] - Sent: whoami
+2025-10-23 23:30:30,484 - 127.0.0.1 [2] - Recived: itamars\itamar
+2025-10-23 23:30:33,116 - 127.0.0.1 [2] - Sent: stop
+2025-10-23 23:30:33,116 - 127.0.0.1 [2] - Client disconnected: 127.0.0.1 (Session ID: 2)
+2025-10-23 23:32:56,282 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:32:56,283 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:32:58,665 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:33:00,822 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:33:12,777 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:33:12,825 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:33:14,712 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:33:14,722 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:33:14,722 - 127.0.0.1 [2] - Now connected to: 127.0.0.1 (Session ID: 2)
+2025-10-23 23:33:18,076 - 127.0.0.1 [2] - Sent: stop
+2025-10-23 23:33:18,076 - 127.0.0.1 [2] - Client disconnected: 127.0.0.1 (Session ID: 2)
+2025-10-23 23:43:39,117 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:43:39,117 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:43:40,929 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:43:46,168 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:44:31,945 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:44:31,945 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:44:33,620 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:44:35,801 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:44:56,772 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:44:56,772 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:44:58,179 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:45:00,397 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:45:31,355 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:45:31,355 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:45:33,534 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:45:35,910 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:45:35,910 - 127.0.0.1 [1] - List of sessions:
+* Session 1: 127.0.0.1
+2025-10-23 23:45:47,452 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:45:50,016 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:45:50,016 - 127.0.0.1 [1] - List of sessions:
+* Session 1: 127.0.0.1Session 2: 127.0.0.1
+2025-10-23 23:46:05,165 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:46:05,165 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:46:06,615 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:46:11,258 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:46:13,659 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:46:13,659 - 127.0.0.1 [1] - List of sessions:
+* Session 1: 127.0.0.1
+Session 2: 127.0.0.1
+
+2025-10-23 23:46:26,028 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:46:26,028 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:46:34,629 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:46:40,110 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 23:46:40,173 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 23:46:41,295 - 127.0.0.1 [1] - Sent: dir
+2025-10-23 23:46:41,326 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2\client
+
+22/10/2025  00:23    <DIR>          .
+23/10/2025  18:30    <DIR>          ..
+22/10/2025  00:23    <DIR>          bin
+22/10/2025  18:51             3,444 client.py
+21/10/2025  21:15    <DIR>          include
+22/10/2025  00:23    <DIR>          lib
+22/10/2025  00:23                 3 lib64
+22/10/2025  00:23               201 pyvenv.cfg
+               3 File(s)          3,648 bytes
+               5 Dir(s)  683,335,688,192 bytes free
+2025-10-23 23:46:53,775 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:46:53,775 - 127.0.0.1 [1] - List of sessions:
+* Session 1: 127.0.0.1
+
+2025-10-23 23:47:00,126 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:47:03,397 - 127.0.0.1 [1] - Sent: list
+2025-10-23 23:47:03,397 - 127.0.0.1 [1] - List of sessions:
+* Session 1: 127.0.0.1
+Session 2: 127.0.0.1
+
+2025-10-23 23:47:09,470 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:47:09,470 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:47:09,470 - 127.0.0.1 [2] - Now connected to: 127.0.0.1 (Session ID: 2)
+2025-10-23 23:47:13,367 - 127.0.0.1 [2] - Sent: list
+2025-10-23 23:47:13,367 - 127.0.0.1 [2] - List of sessions:
+* Session 2: 127.0.0.1
+
+2025-10-23 23:47:18,338 - 127.0.0.1 [2] - Sent: stop
+2025-10-23 23:47:18,338 - 127.0.0.1 [2] - Client disconnected: 127.0.0.1 (Session ID: 2)
+2025-10-23 23:48:59,930 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:48:59,930 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:49:06,510 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:49:07,630 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-23 23:49:10,440 - 127.0.0.1 [1] - Sent: sessions
+2025-10-23 23:49:10,441 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+ID 2 - Host: 127.0.0.1
+
+2025-10-23 23:53:10,921 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:53:10,921 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:53:12,424 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:53:36,947 - 127.0.0.1 [server] - Server Started
+2025-10-23 23:53:36,947 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 23:53:38,190 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 23:53:47,708 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 23:53:47,708 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:00:55,724 - 127.0.0.1 [server] - Server Started
+2025-10-24 00:00:55,724 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 00:00:59,824 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:01:02,134 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 00:01:02,134 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-24 00:01:08,161 - 127.0.0.1 [1] - Sent: sessions yay
+2025-10-24 00:01:08,162 - 127.0.0.1 [1] - Too many arguments, Usage: sessions
+2025-10-24 00:01:11,050 - 127.0.0.1 [1] - Sent: stop yay
+2025-10-24 00:01:11,051 - 127.0.0.1 [1] - Too many arguments, Usage: stop
+2025-10-24 00:01:17,979 - 127.0.0.1 [1] - Sent: use
+2025-10-24 00:01:17,979 - 127.0.0.1 [1] - Too few arguments, Usage: use <client id>
+2025-10-24 00:01:22,145 - 127.0.0.1 [1] - Sent: use use use
+2025-10-24 00:01:22,146 - 127.0.0.1 [1] - Too many arguments, Usage: use <client id>
+2025-10-24 00:01:28,413 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-24 00:01:32,449 - 127.0.0.1 [1] - Sent: use 3
+2025-10-24 00:01:32,450 - 127.0.0.1 [1] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:01:37,313 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 00:01:37,313 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+ID 2 - Host: 127.0.0.1
+
+2025-10-24 00:01:38,505 - 127.0.0.1 [1] - Sent: use 2
+2025-10-24 00:01:38,505 - 127.0.0.1 [1] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:05:33,195 - 127.0.0.1 [1] - Sent: stop
+2025-10-24 00:05:33,195 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:05:33,195 - 127.0.0.1 [2] - Now connected to: 127.0.0.1 (Session ID: 2)
+2025-10-24 00:05:33,814 - 127.0.0.1 [2] - Sent: stop
+2025-10-24 00:05:33,814 - 127.0.0.1 [2] - Client disconnected: 127.0.0.1 (Session ID: 2)
+2025-10-24 00:05:36,304 - 127.0.0.1 [server] - Server Started
+2025-10-24 00:05:36,304 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 00:05:37,925 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:05:38,957 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-24 00:05:42,193 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 00:05:42,193 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+ID 2 - Host: 127.0.0.1
+
+2025-10-24 00:05:43,309 - 127.0.0.1 [1] - Sent: use 3
+2025-10-24 00:05:43,310 - 127.0.0.1 [1] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:05:44,730 - 127.0.0.1 [1] - Sent: use 2
+2025-10-24 00:05:44,730 - 127.0.0.1 [2] - Session 2 set
+2025-10-24 00:05:48,422 - 127.0.0.1 [2] - Sent: sessions
+2025-10-24 00:05:48,422 - 127.0.0.1 [2] - 
+ID 1 - Host: 127.0.0.1
+* ID 2 - Host: 127.0.0.1
+
+2025-10-24 00:05:51,946 - 127.0.0.1 [2] - Sent: use 1
+2025-10-24 00:05:51,947 - 127.0.0.1 [1] - Session 1 set
+2025-10-24 00:05:53,822 - 127.0.0.1 [1] - Sent: use 2
+2025-10-24 00:05:53,824 - 127.0.0.1 [2] - Session 2 set
+2025-10-24 00:06:03,781 - 127.0.0.1 [2] - Sent: use 1
+2025-10-24 00:06:03,782 - 127.0.0.1 [1] - Session 1 set
+2025-10-24 00:06:06,085 - 127.0.0.1 [1] - Sent: use 1
+2025-10-24 00:06:06,085 - 127.0.0.1 [1] - Session 1 set
+2025-10-24 00:06:08,426 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 00:06:08,426 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+ID 2 - Host: 127.0.0.1
+
+2025-10-24 00:06:10,612 - 127.0.0.1 [1] - Sent: use a
+2025-10-24 00:06:10,613 - 127.0.0.1 [1] - Argument is not a number, Usage: use <client's id>
+2025-10-24 00:06:23,226 - 127.0.0.1 [server] - Server Started
+2025-10-24 00:06:23,226 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 00:06:30,993 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:06:33,982 - 127.0.0.1 [2] - 
+Client connected: 127.0.0.1 (Session ID: 2)
+> 
+2025-10-24 00:06:36,642 - 127.0.0.1 [1] - Sent: useuse a
+2025-10-24 00:06:36,675 - 127.0.0.1 [1] - Recived: 'useuse' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-24 00:06:38,077 - 127.0.0.1 [1] - Sent: use a
+2025-10-24 00:06:38,077 - 127.0.0.1 [1] - Argument is not a number, Usage: use <client's id>
+2025-10-24 00:06:42,914 - 127.0.0.1 [1] - Sent: use 2
+2025-10-24 00:06:42,914 - 127.0.0.1 [2] - Session 2 set
+2025-10-24 00:06:43,970 - 127.0.0.1 [2] - Sent: use 3
+2025-10-24 00:06:43,970 - 127.0.0.1 [2] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:06:45,418 - 127.0.0.1 [2] - Sent: use 0
+2025-10-24 00:06:45,418 - 127.0.0.1 [2] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:06:48,850 - 127.0.0.1 [2] - Sent: use asfdafdsg asdf
+2025-10-24 00:06:48,851 - 127.0.0.1 [2] - Too many arguments, Usage: use <client id>
+2025-10-24 00:06:50,019 - 127.0.0.1 [2] - Sent: use sadf
+2025-10-24 00:06:50,019 - 127.0.0.1 [2] - Argument is not a number, Usage: use <client's id>
+2025-10-24 00:06:54,685 - 127.0.0.1 [2] - Sent: sessions
+2025-10-24 00:06:54,685 - 127.0.0.1 [2] - 
+ID 1 - Host: 127.0.0.1
+* ID 2 - Host: 127.0.0.1
+
+2025-10-24 00:06:55,893 - 127.0.0.1 [2] - Sent: stop
+2025-10-24 00:06:55,893 - 127.0.0.1 [2] - Client disconnected: 127.0.0.1 (Session ID: 2)
+2025-10-24 00:06:55,893 - 127.0.0.1 [1] - Now connected to: 127.0.0.1 (Session ID: 1)
+2025-10-24 00:06:59,203 - 127.0.0.1 [1] - Sent: use 2
+2025-10-24 00:06:59,204 - 127.0.0.1 [1] - Invalid client's id, Usage: use <client's id>
+2025-10-24 00:07:01,991 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 00:07:01,991 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-24 00:07:03,194 - 127.0.0.1 [1] - Sent: stop
+2025-10-24 00:07:03,194 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

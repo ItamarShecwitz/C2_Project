@@ -11,6 +11,16 @@ ENCODING = "utf-8"
 PROMPT = "> "
 FIRST_SESSION_ID = 1
 
+COMMAND_INDEX = 0
+CLIENT_ID_INDEX = 1
+
+STOP_ARGUMENTS = 1
+SESSIONS_ARGUMENTS = 1
+USE_ARGUMENTS = 2
+
+CONNECTIONS_TIMEOUT = 1.0
+MAIN_SESSION_TIMEOUT = 0.5
+
 LOG_FILE_NAME = "server.log"
 LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
@@ -32,7 +42,7 @@ class Session():
         self.id = Session.id_counter
         Session.id_counter += 1
         self.connection = connection
-        self.connection.settimeout(1.0)
+        self.connection.settimeout(CONNECTIONS_TIMEOUT)
         self.client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
     
@@ -93,14 +103,19 @@ def bind_and_listen(logger, socket_object, server_host, port):
 
 
 def wait_for_new_connections(logger, socket_object):
+    # Wait for new connections, and add them to the session dictionary.
 
     global sessions, main_session_ready
 
     while server_running.is_set():
         try:
-            connection, _ = socket_object.accept()
+            connection, _ = socket_object.accept() # Wait for connections.
+
+            # Create a new session from the new connection.
             new_session = Session(connection)
             sessions[new_session.id] = new_session
+
+            # If its the first session, tell the main function that the session ready.
             if len(sessions) == 1:
                 main_session_ready.set()
                 print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session)
@@ -114,40 +129,48 @@ def wait_for_new_connections(logger, socket_object):
 
 
 def handle_messages_session(logger, current_session):
+    # A for loop that take input, and handle sending and recieving the messages
 
     global sessions
-    # Running until "stop" is sent.
+
     while server_running.is_set():
 
         message = current_session.send_new_message(logger)
 
+        # Check if there is valid connection, and the message is ok.
         if len(sessions) == 0: break
         if current_session.id not in sessions.keys():
             current_session = next(iter(sessions.values()))
             print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
         if not message: continue
 
-
+        # Check if it can be splited to different words.
         message_arguments = message.split()
-        
-        if not message_arguments:
-            continue
+        if not message_arguments: continue
 
-        command = message_arguments[0]
+        # Take the first word and set it as the command.
+        command = message_arguments[COMMAND_INDEX]
+
         match command:
-            # If the message is stop, stop the session.
+
+            
             case "stop":
-                if len(message_arguments) != 1:
+                # If the message is stop, stop the session.
+
+                if len(message_arguments) != STOP_ARGUMENTS:
                     print_log(logger, f"Too many arguments, Usage: stop", current_session)
                     continue
                 current_session.stop_connection(logger)
-                if len(sessions) == 0:
-                    break
+                if len(sessions) == 0: break
+
+                # If There are still other sessions left, switch to the next session.
                 current_session = next(iter(sessions.values()))
                 print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
 
             case "sessions":
-                if len(message_arguments) != 1:
+                # If the message is sessions, Show the sessions.
+
+                if len(message_arguments) != SESSIONS_ARGUMENTS:
                     print_log(logger, f"Too many arguments, Usage: sessions", current_session)
                     continue
                 elif not sessions:
@@ -155,28 +178,36 @@ def handle_messages_session(logger, current_session):
 
                 list_of_sessions = "\n"
 
+                # Go over all of the sessions and add them to the string.
                 for session in sessions.values():
                     if session.id == current_session.id:
-                        list_of_sessions += "* "
+                        list_of_sessions += "* " # Highlight the current session
                     list_of_sessions += f"ID {session.id} - Host: {session.client_host}\n"
                 print_log(logger, list_of_sessions, current_session)
 
             case "use":
-                if len(message_arguments) > 2:
-                    print_log(logger, f"Too many arguments, Usage: use <client id>", current_session)
+                # If the message is use <client's id>, switch to the desired id.
+
+                if len(message_arguments) > USE_ARGUMENTS:
+                    print_log(logger, f"Too many arguments, Usage: use <client's id>", current_session)
                     continue
-                elif len(message_arguments) < 2:
-                    print_log(logger, f"Too few arguments, Usage: use <client id>", current_session)
+                elif len(message_arguments) < USE_ARGUMENTS:
+                    print_log(logger, f"Too few arguments, Usage: use <client's id>", current_session)
                     continue
-                elif not message_arguments[1].isdigit():
+                elif not message_arguments[CLIENT_ID_INDEX].isdigit():
                     print_log(logger, f"Argument is not a number, Usage: use <client's id>", current_session)
                     continue
-                elif int(message_arguments[1]) not in sessions.keys():
+                elif int(message_arguments[CLIENT_ID_INDEX]) not in sessions.keys():
                     print_log(logger, f"Invalid client's id, Usage: use <client's id>", current_session)
                     continue
-                current_session = sessions[int(message_arguments[1])]
+
+                # Setting the current session to the desired session.
+                current_session = sessions[int(message_arguments[CLIENT_ID_INDEX])]
                 print_log(logger, f"Session {current_session.id} set", current_session)  
+
             case _ :
+                # Getting back the output that sent to the server.
+
                 current_session.get_output(logger)
 
 
@@ -207,18 +238,24 @@ def main():
     with create_tcp_socket(logger) as server_socket:
 
         bind_and_listen(logger, server_socket, SERVER_HOST, PORT)
+
+        # Creating a thread for accepting new connections.
         wait_for_connections_thread = threading.Thread(target=wait_for_new_connections, args=(logger, server_socket))
 
         # wait for at least one session
         wait_for_connections_thread.start()
         
         try:
+            # wait until the first connection is set.
             while not main_session_ready.is_set():
-                main_session_ready.wait(timeout=0.5)
+                main_session_ready.wait(timeout=MAIN_SESSION_TIMEOUT)
+            
+            # Enter the main loop.
             handle_messages_session(logger, sessions[FIRST_SESSION_ID])
         except KeyboardInterrupt:
-            pass
+            pass # Exit when interrupted by keyboard.
         finally:
+            # Closing all connections.
             server_running.clear()
             for session in list(sessions.values()):
                 session.stop_connection(logger)

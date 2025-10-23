@@ -9,9 +9,16 @@ CLIENT_HOST = "127.0.0.1"
 MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
+
 HOST_INDEX = 1
 PORT_INDEX = 2
+
 EXPECTED_ARGS = 3  # script name + 2 args
+
+MIN_PORT = 1
+MAX_PORT = 65535
+
+CONNECTIONS_TIMEOUT = 1.0
 
 
 def get_arguments():
@@ -36,7 +43,7 @@ def get_arguments():
         # Validate port
         try:
             port = int(port_str)
-            if not (1 <= port <= 65535):
+            if not (MIN_PORT <= port <= MAX_PORT):
                 raise ValueError
         except ValueError:
             print("Error: Invalid port number (must be 1–65535).")
@@ -98,7 +105,7 @@ def main():
     server_host, port = get_arguments()
 
     client_socket = create_session(CLIENT_HOST, server_host, port)
-    client_socket.settimeout(1.0)
+    client_socket.settimeout(CONNECTIONS_TIMEOUT)
     with client_socket:
         try:
             # Running until "stop" is sent from the server.

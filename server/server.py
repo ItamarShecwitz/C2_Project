@@ -86,12 +86,16 @@ def wait_for_new_connections(logger, socket_object):
     global main_session_ready
 
     while True:
-        connection, _ = socket_object.accept()
-        new_session = Session(logger, connection)
-        sessions.append(new_session)
-        if len(sessions) == 1:
-            main_session = new_session
-            main_session_ready.set()
+        try:
+            connection, _ = socket_object.accept()
+            new_session = Session(logger, connection)
+            sessions.append(new_session)
+            if len(sessions) == 1:
+                main_session = new_session
+                main_session_ready.set()
+        except OSError:
+            break
+
 
 
 def create_logger():
@@ -122,6 +126,8 @@ def main():
 
         bind_and_listen(logger, server_socket, SERVER_HOST, PORT)
         wait_for_connections_thread = threading.Thread(target=wait_for_new_connections, args=(logger, server_socket))
+
+        # wait for at least one session
         wait_for_connections_thread.start()
         main_session_ready.wait()
 

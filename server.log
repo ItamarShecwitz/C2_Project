@@ -69,3 +69,24 @@
 22/10/2025  18:22             3,433 server.py
                3 File(s)          6,964 bytes
                4 Dir(s)  682,384,973,824 bytes free
+2025-10-23 18:52:22,957 - 127.0.0.1 [server] - Server Started
+2025-10-23 18:52:22,957 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 18:52:39,748 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 18:52:46,402 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 18:52:46,462 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 18:52:48,224 - 127.0.0.1 [2] - Client connected: 127.0.0.1 (Session ID: 2)
+2025-10-23 22:13:50,078 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:13:50,078 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:13:52,213 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:14:50,139 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:14:50,139 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:14:52,095 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:14:55,101 - 127.0.0.1 [1] - Sent: whoami
+2025-10-23 22:14:55,167 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-23 22:14:56,916 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 22:14:56,916 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:17:36,150 - 127.0.0.1 [server] - Server Started
+2025-10-23 22:17:36,150 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-23 22:17:37,870 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-23 22:17:39,928 - 127.0.0.1 [1] - Sent: stop
+2025-10-23 22:17:39,928 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

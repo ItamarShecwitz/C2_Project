@@ -1,0 +1,22 @@
+2025-10-24 12:29:12,074 - 127.0.0.1 [server] - Server Started
+2025-10-24 12:29:12,074 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 12:31:55,604 - 127.0.0.1 [server] - Server Started
+2025-10-24 12:31:55,604 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 12:34:10,017 - 127.0.0.1 [server] - Server Started
+2025-10-24 12:34:10,017 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 12:34:20,542 - 127.0.0.1 [server] - Server Started
+2025-10-24 12:34:20,542 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 12:37:11,437 - 127.0.0.1 [server] - Server Started
+2025-10-24 12:37:11,437 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-24 12:37:48,552 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-24 12:37:51,286 - 127.0.0.1 [1] - Sent: whoami
+2025-10-24 12:37:51,337 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-24 12:37:55,044 - 127.0.0.1 [1] - Sent: nice
+2025-10-24 12:37:55,081 - 127.0.0.1 [1] - Recived: 'nice' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-24 12:37:57,295 - 127.0.0.1 [1] - Sent: sessions
+2025-10-24 12:37:57,295 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-24 12:37:58,746 - 127.0.0.1 [1] - Sent: stop
+2025-10-24 12:37:58,746 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

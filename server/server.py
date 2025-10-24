@@ -1,6 +1,7 @@
 import socket
 import logging
 import threading
+import ssl
 
 # Global Constants
 SERVER_HOST = "127.0.0.1"
@@ -24,6 +25,9 @@ MAIN_SESSION_TIMEOUT = 0.5
 LOG_FILE_NAME = "server.log"
 LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
+
+CERTFILE = "certs/cert.pem"
+KEYFILE = "certs/key.pem"
 
 sessions = {}
 main_session_ready = threading.Event()
@@ -89,6 +93,7 @@ def create_tcp_socket(logger):
     # Create a new TCP Socket object.
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.settimeout(CONNECTIONS_TIMEOUT)
     print_log(logger, "Server Started")
     return server_socket
 
@@ -100,6 +105,14 @@ def bind_and_listen(logger, socket_object, server_host, port):
 
     print_log(logger, "Waiting for connections...")
     socket_object.listen()
+
+
+def make_socket_tls(server_socket):
+    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
+
+    tls_socket = context.wrap_socket(server_socket, server_side=True)
+    return tls_socket
 
 
 def wait_for_new_connections(logger, socket_object):
@@ -124,6 +137,8 @@ def wait_for_new_connections(logger, socket_object):
                 print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session, printable=False)
         except socket.timeout:
             continue
+        except KeyboardInterrupt:
+            break
         except OSError:
             break
 
@@ -238,6 +253,8 @@ def main():
     with create_tcp_socket(logger) as server_socket:
 
         bind_and_listen(logger, server_socket, SERVER_HOST, PORT)
+
+        server_socket = make_socket_tls(server_socket)
 
         # Creating a thread for accepting new connections.
         wait_for_connections_thread = threading.Thread(target=wait_for_new_connections, args=(logger, server_socket))

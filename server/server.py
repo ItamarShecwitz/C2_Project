@@ -1,7 +1,11 @@
 import socket
 import logging
 import threading
+
 import ssl
+import base64
+import hmac
+import hashlib
 
 # Global Constants
 SERVER_HOST = "127.0.0.1"
@@ -28,6 +32,7 @@ LOG_DEFAULT_LEVEL = logging.INFO
 
 CERTFILE = "certs/cert.pem"
 KEYFILE = "certs/key.pem"
+HMAC_KEY = "hmac.key"
 
 sessions = {}
 main_session_ready = threading.Event()
@@ -50,17 +55,20 @@ class Session():
         self.client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
     
-    def send_new_message(self, logger):
+    def send_new_message(self, logger, hmac_key):
         # Send a message to the client.
 
         message = input(PROMPT)
 
         try:
             if message:
+                # signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
                 self.connection.send(bytes(message, encoding=ENCODING))
+                # self.connection.send(bytes(signature, encoding=ENCODING))
                 self.connection.send(b'') # Check if the client is alive.
                 print_log(logger, f"Sent: {message}", self, False)
-            return message
+            return 
+        
         except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
             self.stop_connection(logger)
             return None
@@ -107,6 +115,13 @@ def bind_and_listen(logger, socket_object, server_host, port):
     socket_object.listen()
 
 
+def get_hmac(file_name):
+    with open(file_name, "r") as f:
+        key_b64 = f.read().strip()
+        hmac_key = base64.b64decode(key_b64)
+        return hmac_key
+
+
 def make_socket_tls(server_socket):
     context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
     context.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
@@ -143,14 +158,14 @@ def wait_for_new_connections(logger, socket_object):
             break
 
 
-def handle_messages_session(logger, current_session):
+def handle_messages_session(logger, current_session, hmac_key):
     # A for loop that take input, and handle sending and recieving the messages
 
     global sessions
 
     while server_running.is_set():
 
-        message = current_session.send_new_message(logger)
+        message = current_session.send_new_message(logger, hmac_key)
 
         # Check if there is valid connection, and the message is ok.
         if len(sessions) == 0: break
@@ -233,6 +248,7 @@ def create_logger():
     logging.basicConfig(filename=LOG_FILE_NAME, format=LOG_FORMAT, level=LOG_DEFAULT_LEVEL)
     return logger
 
+
 def print_log(logger, log, session=None, printable=True):
     # Print the log to a file, if printable is true, then also printing the log to terminal.
 
@@ -247,7 +263,7 @@ def main():
 
     # Create logger
     logger = create_logger()
-
+    hmac_key = get_hmac(HMAC_KEY)
     
 
     with create_tcp_socket(logger) as server_socket:
@@ -268,7 +284,7 @@ def main():
                 main_session_ready.wait(timeout=MAIN_SESSION_TIMEOUT)
             
             # Enter the main loop.
-            handle_messages_session(logger, sessions[FIRST_SESSION_ID])
+            handle_messages_session(logger, sessions[FIRST_SESSION_ID], hmac_key)
         except KeyboardInterrupt:
             pass # Exit when interrupted by keyboard.
         finally:

@@ -26,6 +26,10 @@ USE_ARGUMENTS = 2
 CONNECTIONS_TIMEOUT = 1.0
 MAIN_SESSION_TIMEOUT = 0.5
 
+STOP_NAME = "stop"
+SESSIONS_NAME = "sessions"
+USE_NAME = "use"
+
 LOG_FILE_NAME = "server.log"
 LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
@@ -62,13 +66,18 @@ class Session():
 
         try:
             if message:
-                # signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+
+                command, _ = get_message_command(message)
+                if not command or command == STOP_NAME or command == SESSIONS_NAME or command == USE_NAME: return message
+
                 self.connection.send(bytes(message, encoding=ENCODING))
+
+                signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
                 # self.connection.send(bytes(signature, encoding=ENCODING))
+                
                 self.connection.send(b'') # Check if the client is alive.
                 print_log(logger, f"Sent: {message}", self, False)
-            return 
-        
+            return message
         except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
             self.stop_connection(logger)
             return None
@@ -172,14 +181,10 @@ def handle_messages_session(logger, current_session, hmac_key):
         if current_session.id not in sessions.keys():
             current_session = next(iter(sessions.values()))
             print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
-        if not message: continue
 
-        # Check if it can be splited to different words.
-        message_arguments = message.split()
-        if not message_arguments: continue
-
-        # Take the first word and set it as the command.
-        command = message_arguments[COMMAND_INDEX]
+        # Get the command name.
+        command, message_arguments = get_message_command(message)
+        if not command: continue
 
         match command:
 
@@ -240,6 +245,18 @@ def handle_messages_session(logger, current_session, hmac_key):
 
                 current_session.get_output(logger)
 
+
+def get_message_command(message):
+    # Get the command name from the message.
+
+    if not message: return (None, None)
+
+    # Check if it can be splited to different words.
+    message_arguments = message.split()
+    if not message_arguments: return (None, None)
+
+    # Return the first word as the command.
+    return (message_arguments[COMMAND_INDEX], message_arguments)
 
 def create_logger():
     # Create a new logger

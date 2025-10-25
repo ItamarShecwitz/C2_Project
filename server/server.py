@@ -36,7 +36,7 @@ LOG_DEFAULT_LEVEL = logging.INFO
 
 CERTFILE = "certs/cert.pem"
 KEYFILE = "certs/key.pem"
-HMAC_KEY = "hmac.key"
+HMAC_KEY_FILE_NAME = "hmac.key"
 
 sessions = {}
 main_session_ready = threading.Event()
@@ -73,7 +73,7 @@ class Session():
                 self.connection.send(bytes(message, encoding=ENCODING))
 
                 signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
-                # self.connection.send(bytes(signature, encoding=ENCODING))
+                self.connection.send(bytes(signature, encoding=ENCODING))
                 
                 self.connection.send(b'') # Check if the client is alive.
                 print_log(logger, f"Sent: {message}", self, False)
@@ -83,18 +83,24 @@ class Session():
             return None
 
 
-    def get_output(self, logger):
+    def get_output(self, logger, hmac_key):
         # Get the response from the client (stdout and stderr), and print it.
         try:
             response = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-            print_log(logger, f"Recived: {response}", self)
+            signature = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
+            if not is_authorized_message(response, signature, hmac_key):
+                print_log(logger, "hmac key don't match", self)
+                return None
+
+            print_log(logger, f"Recived: {response}", self, printable=False)
+            print(response)
 
             return response
         except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
             self.stop_connection(logger)
             return None
         
-
 
     def stop_connection(self, logger):
         # Close the connection of a session.
@@ -125,13 +131,26 @@ def bind_and_listen(logger, socket_object, server_host, port):
 
 
 def get_hmac(file_name):
+    # Get the hmac key from a file.
+
     with open(file_name, "r") as f:
         key_b64 = f.read().strip()
         hmac_key = base64.b64decode(key_b64)
         return hmac_key
 
 
+def is_authorized_message(message, signature, hmac_key):
+    # Check if the current message is signed with the corresponding hmac key.
+
+    expected_signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+
+    if hmac.compare_digest(expected_signature, signature): return True
+    else: return False
+
+
 def make_socket_tls(server_socket):
+    # Wrap the socket with tls layer.
+
     context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
     context.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
 
@@ -243,7 +262,7 @@ def handle_messages_session(logger, current_session, hmac_key):
             case _ :
                 # Getting back the output that sent to the server.
 
-                current_session.get_output(logger)
+                current_session.get_output(logger, hmac_key)
 
 
 def get_message_command(message):
@@ -257,6 +276,7 @@ def get_message_command(message):
 
     # Return the first word as the command.
     return (message_arguments[COMMAND_INDEX], message_arguments)
+
 
 def create_logger():
     # Create a new logger
@@ -280,7 +300,7 @@ def main():
 
     # Create logger
     logger = create_logger()
-    hmac_key = get_hmac(HMAC_KEY)
+    hmac_key = get_hmac(HMAC_KEY_FILE_NAME)
     
 
     with create_tcp_socket(logger) as server_socket:

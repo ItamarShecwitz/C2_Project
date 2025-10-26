@@ -1,7 +1,6 @@
 import socket
 import logging
 import threading
-
 import ssl
 import base64
 import hmac
@@ -42,7 +41,6 @@ LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
 
 
-
 sessions = {}
 main_session_ready = threading.Event()
 server_running = threading.Event()
@@ -67,20 +65,26 @@ class Session():
     def send_new_message(self, logger, hmac_key):
         # Send a message to the client.
 
+        # Waiting for user input.
         message = input(PROMPT)
 
         try:
             if message:
 
+                # Get the command and if its a custom one, don't send it.
                 command, _ = get_message_command(message)
                 if not command or command == STOP_NAME or command == SESSIONS_NAME or command == USE_NAME: return message
 
+                # Send message.
                 self.connection.send(bytes(message, encoding=ENCODING))
 
+                # Send hmac signature.
                 signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
                 self.connection.send(bytes(signature, encoding=ENCODING))
                 
-                self.connection.send(b'') # Check if the client is alive.
+                # Check if the client is alive.
+                self.connection.send(b'') 
+
                 print_log(logger, f"Sent: {message}", self, False)
             return message
         except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
@@ -90,10 +94,13 @@ class Session():
 
     def get_output(self, logger, hmac_key):
         # Get the response from the client (stdout and stderr), and print it.
+
         try:
+            # Get the response and the signature
             response = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
             signature = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
+            # check if the message is signed correctly.
             if not is_authorized_message(response, signature, hmac_key):
                 print_log(logger, "hmac key don't match", self)
                 return None
@@ -170,7 +177,8 @@ def wait_for_new_connections(logger, socket_object):
 
     while server_running.is_set():
         try:
-            connection, _ = socket_object.accept() # Wait for connections.
+            # Wait for connections.
+            connection, _ = socket_object.accept()
 
             # Create a new session from the new connection.
             new_session = Session(connection)
@@ -310,8 +318,10 @@ def main():
 
     with create_tcp_socket(logger) as server_socket:
 
+        # Preparing the server.
         bind_and_listen(logger, server_socket, SERVER_HOST, PORT)
 
+        # Wrapping the socket with TLS.
         server_socket = make_socket_tls(server_socket)
 
         # Creating a thread for accepting new connections.

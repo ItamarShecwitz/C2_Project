@@ -673,3 +673,5 @@ operable program or batch file.
 * ID 1 - Host: 127.0.0.1
 
 2025-10-26 14:37:18,107 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 16:39:24,894 - 0.0.0.0 [server] - Server Started
+2025-10-26 16:39:24,894 - 0.0.0.0 [server] - Waiting for connections...

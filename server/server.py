@@ -13,7 +13,7 @@ PORT = int(os.environ.get("PORT", "2222"))
 CERTFILE = os.environ.get("CERTFILE", "./certs/cert.pem")
 KEYFILE = os.environ.get("KEYFILE", "./certs/key.pem")
 HMAC_KEY_FILE_NAME = os.environ.get("HMAC_KEY_FILE_NAME", "default_hmac.key")
-HMAC_KEY_PARAMETER = os.environ.get("HMAC", "")
+HMAC_KEY_PARAMETER = os.environ.get("HMAC", "").encode()
 
 # Global Constants
 MAX_BYTES_REPONSE = 65536
@@ -314,7 +314,7 @@ def main():
     # Create logger
     logger = create_logger()
     hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)
-    
+    print(hmac_key)
 
     with create_tcp_socket(logger) as server_socket:
 

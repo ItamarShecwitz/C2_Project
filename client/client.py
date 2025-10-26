@@ -8,8 +8,8 @@ import hashlib
 import os
 
 # env
-HMAC_KEY_PARAMETER = os.environ.get("HMAC", "")
 CLIENT_HOST = os.environ.get("CLIENT_HOST", "127.0.0.1")
+HMAC_KEY_PARAMETER = os.environ.get("HMAC", "").encode()
 
 # Global Constants
 MAX_BYTES_REPONSE = 65536
@@ -152,7 +152,6 @@ def stop_connection(socket_object):
     print("Disconnecting from server")
 
 def main():
-
     # Get the arguments.
     server_host, port = get_arguments()
     hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)

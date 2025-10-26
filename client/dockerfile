@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY client.py .
+COPY default_hmac.key .
+
+ENV HMAC=""
+ENV CLIENT_HOST="c2-client"
+CMD ["python", "client.py", "c2-server", "2222"]

@@ -2,19 +2,41 @@ import socket
 import logging
 import threading
 
+import ssl
+import base64
+import hmac
+import hashlib
+
 # Global Constants
 SERVER_HOST = "127.0.0.1"
 PORT = 2222
 MAX_BYTES_REPONSE = 65536
 ENCODING = "utf-8"
-NEWLINE = "\n"
 
 PROMPT = "> "
 FIRST_SESSION_ID = 1
 
+COMMAND_INDEX = 0
+CLIENT_ID_INDEX = 1
+
+STOP_ARGUMENTS = 1
+SESSIONS_ARGUMENTS = 1
+USE_ARGUMENTS = 2
+
+CONNECTIONS_TIMEOUT = 1.0
+MAIN_SESSION_TIMEOUT = 0.5
+
+STOP_NAME = "stop"
+SESSIONS_NAME = "sessions"
+USE_NAME = "use"
+
 LOG_FILE_NAME = "server.log"
 LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
+
+CERTFILE = "certs/cert.pem"
+KEYFILE = "certs/key.pem"
+HMAC_KEY_FILE_NAME = "hmac.key"
 
 sessions = {}
 main_session_ready = threading.Event()
@@ -33,18 +55,26 @@ class Session():
         self.id = Session.id_counter
         Session.id_counter += 1
         self.connection = connection
-        self.connection.settimeout(1.0)
+        self.connection.settimeout(CONNECTIONS_TIMEOUT)
         self.client_host = connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
 
     
-    def send_new_message(self, logger):
+    def send_new_message(self, logger, hmac_key):
         # Send a message to the client.
 
         message = input(PROMPT)
 
         try:
             if message:
+
+                command, _ = get_message_command(message)
+                if not command or command == STOP_NAME or command == SESSIONS_NAME or command == USE_NAME: return message
+
                 self.connection.send(bytes(message, encoding=ENCODING))
+
+                signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+                self.connection.send(bytes(signature, encoding=ENCODING))
+                
                 self.connection.send(b'') # Check if the client is alive.
                 print_log(logger, f"Sent: {message}", self, False)
             return message
@@ -53,18 +83,24 @@ class Session():
             return None
 
 
-    def get_output(self, logger):
+    def get_output(self, logger, hmac_key):
         # Get the response from the client (stdout and stderr), and print it.
         try:
             response = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
-            print_log(logger, f"Recived: {response}", self)
+            signature = self.connection.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
+            if not is_authorized_message(response, signature, hmac_key):
+                print_log(logger, "hmac key don't match", self)
+                return None
+
+            print_log(logger, f"Recived: {response}", self, printable=False)
+            print(response)
 
             return response
         except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
             self.stop_connection(logger)
             return None
         
-
 
     def stop_connection(self, logger):
         # Close the connection of a session.
@@ -80,6 +116,7 @@ def create_tcp_socket(logger):
     # Create a new TCP Socket object.
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.settimeout(CONNECTIONS_TIMEOUT)
     print_log(logger, "Server Started")
     return server_socket
 
@@ -93,61 +130,101 @@ def bind_and_listen(logger, socket_object, server_host, port):
     socket_object.listen()
 
 
+def get_hmac(file_name):
+    # Get the hmac key from a file.
+
+    with open(file_name, "r") as f:
+        key_b64 = f.read().strip()
+        hmac_key = base64.b64decode(key_b64)
+        return hmac_key
+
+
+def is_authorized_message(message, signature, hmac_key):
+    # Check if the current message is signed with the corresponding hmac key.
+
+    expected_signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+
+    if hmac.compare_digest(expected_signature, signature): return True
+    else: return False
+
+
+def make_socket_tls(server_socket):
+    # Wrap the socket with tls layer.
+
+    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context.load_cert_chain(certfile=CERTFILE, keyfile=KEYFILE)
+
+    tls_socket = context.wrap_socket(server_socket, server_side=True)
+    return tls_socket
+
+
 def wait_for_new_connections(logger, socket_object):
+    # Wait for new connections, and add them to the session dictionary.
 
     global sessions, main_session_ready
 
     while server_running.is_set():
         try:
-            connection, _ = socket_object.accept()
+            connection, _ = socket_object.accept() # Wait for connections.
+
+            # Create a new session from the new connection.
             new_session = Session(connection)
             sessions[new_session.id] = new_session
+
+            # If its the first session, tell the main function that the session ready.
             if len(sessions) == 1:
                 main_session_ready.set()
                 print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session)
             else:
-                print_log(logger, f"\nClient connected: {new_session.client_host} (Session ID: {new_session.id})\n> ", new_session, newline="")
+                print(f"\nClient connected: {new_session.client_host} (Session ID: {new_session.id})\n> ", end="")
+                print_log(logger, f"Client connected: {new_session.client_host} (Session ID: {new_session.id})", new_session, printable=False)
         except socket.timeout:
             continue
+        except KeyboardInterrupt:
+            break
         except OSError:
             break
 
 
-def handle_messages_session(logger, current_session):
+def handle_messages_session(logger, current_session, hmac_key):
+    # A for loop that take input, and handle sending and recieving the messages
 
     global sessions
-    # Running until "stop" is sent.
+
     while server_running.is_set():
 
-        message = current_session.send_new_message(logger)
+        message = current_session.send_new_message(logger, hmac_key)
 
+        # Check if there is valid connection, and the message is ok.
         if len(sessions) == 0: break
         if current_session.id not in sessions.keys():
             current_session = next(iter(sessions.values()))
             print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
-        if not message: continue
 
+        # Get the command name.
+        command, message_arguments = get_message_command(message)
+        if not command: continue
 
-        message_arguments = message.split()
-        
-        if not message_arguments:
-            continue
-
-        command = message_arguments[0]
         match command:
-            # If the message is stop, stop the session.
+
+            
             case "stop":
-                if len(message_arguments) != 1:
+                # If the message is stop, stop the session.
+
+                if len(message_arguments) != STOP_ARGUMENTS:
                     print_log(logger, f"Too many arguments, Usage: stop", current_session)
                     continue
                 current_session.stop_connection(logger)
-                if len(sessions) == 0:
-                    break
+                if len(sessions) == 0: break
+
+                # If There are still other sessions left, switch to the next session.
                 current_session = next(iter(sessions.values()))
                 print_log(logger, f"Now connected to: {current_session.client_host} (Session ID: {current_session.id})", current_session)
 
             case "sessions":
-                if len(message_arguments) != 1:
+                # If the message is sessions, Show the sessions.
+
+                if len(message_arguments) != SESSIONS_ARGUMENTS:
                     print_log(logger, f"Too many arguments, Usage: sessions", current_session)
                     continue
                 elif not sessions:
@@ -155,29 +232,50 @@ def handle_messages_session(logger, current_session):
 
                 list_of_sessions = "\n"
 
+                # Go over all of the sessions and add them to the string.
                 for session in sessions.values():
                     if session.id == current_session.id:
-                        list_of_sessions += "* "
+                        list_of_sessions += "* " # Highlight the current session
                     list_of_sessions += f"ID {session.id} - Host: {session.client_host}\n"
                 print_log(logger, list_of_sessions, current_session)
 
             case "use":
-                if len(message_arguments) > 2:
-                    print_log(logger, f"Too many arguments, Usage: use <client id>", current_session)
+                # If the message is use <client's id>, switch to the desired id.
+
+                if len(message_arguments) > USE_ARGUMENTS:
+                    print_log(logger, f"Too many arguments, Usage: use <client's id>", current_session)
                     continue
-                elif len(message_arguments) < 2:
-                    print_log(logger, f"Too few arguments, Usage: use <client id>", current_session)
+                elif len(message_arguments) < USE_ARGUMENTS:
+                    print_log(logger, f"Too few arguments, Usage: use <client's id>", current_session)
                     continue
-                elif not message_arguments[1].isdigit():
+                elif not message_arguments[CLIENT_ID_INDEX].isdigit():
                     print_log(logger, f"Argument is not a number, Usage: use <client's id>", current_session)
                     continue
-                elif int(message_arguments[1]) not in sessions.keys():
+                elif int(message_arguments[CLIENT_ID_INDEX]) not in sessions.keys():
                     print_log(logger, f"Invalid client's id, Usage: use <client's id>", current_session)
                     continue
-                current_session = sessions[int(message_arguments[1])]
+
+                # Setting the current session to the desired session.
+                current_session = sessions[int(message_arguments[CLIENT_ID_INDEX])]
                 print_log(logger, f"Session {current_session.id} set", current_session)  
+
             case _ :
-                current_session.get_output(logger)
+                # Getting back the output that sent to the server.
+
+                current_session.get_output(logger, hmac_key)
+
+
+def get_message_command(message):
+    # Get the command name from the message.
+
+    if not message: return (None, None)
+
+    # Check if it can be splited to different words.
+    message_arguments = message.split()
+    if not message_arguments: return (None, None)
+
+    # Return the first word as the command.
+    return (message_arguments[COMMAND_INDEX], message_arguments)
 
 
 def create_logger():
@@ -187,10 +285,11 @@ def create_logger():
     logging.basicConfig(filename=LOG_FILE_NAME, format=LOG_FORMAT, level=LOG_DEFAULT_LEVEL)
     return logger
 
-def print_log(logger, log, session=None, printable=True, newline = NEWLINE):
+
+def print_log(logger, log, session=None, printable=True):
     # Print the log to a file, if printable is true, then also printing the log to terminal.
 
-    if printable: print(log, end=newline) 
+    if printable: print(log) 
     if session:
         logger.info(log, extra={"address": session.client_host, "session_id": session.id})
     else:
@@ -201,24 +300,32 @@ def main():
 
     # Create logger
     logger = create_logger()
-
+    hmac_key = get_hmac(HMAC_KEY_FILE_NAME)
     
 
     with create_tcp_socket(logger) as server_socket:
 
         bind_and_listen(logger, server_socket, SERVER_HOST, PORT)
+
+        server_socket = make_socket_tls(server_socket)
+
+        # Creating a thread for accepting new connections.
         wait_for_connections_thread = threading.Thread(target=wait_for_new_connections, args=(logger, server_socket))
 
         # wait for at least one session
         wait_for_connections_thread.start()
         
         try:
+            # wait until the first connection is set.
             while not main_session_ready.is_set():
-                main_session_ready.wait(timeout=0.5)
-            handle_messages_session(logger, sessions[FIRST_SESSION_ID])
+                main_session_ready.wait(timeout=MAIN_SESSION_TIMEOUT)
+            
+            # Enter the main loop.
+            handle_messages_session(logger, sessions[FIRST_SESSION_ID], hmac_key)
         except KeyboardInterrupt:
-            pass
+            pass # Exit when interrupted by keyboard.
         finally:
+            # Closing all connections.
             server_running.clear()
             for session in list(sessions.values()):
                 session.stop_connection(logger)

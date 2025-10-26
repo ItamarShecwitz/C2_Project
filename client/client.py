@@ -3,16 +3,28 @@ import subprocess
 import sys
 import ipaddress
 
+import ssl
+import base64
+import hmac
+import hashlib
 
 # Global Constants
 CLIENT_HOST = "127.0.0.1"
 MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
+
 HOST_INDEX = 1
 PORT_INDEX = 2
+
 EXPECTED_ARGS = 3  # script name + 2 args
 
+MIN_PORT = 1
+MAX_PORT = 65535
+
+CONNECTIONS_TIMEOUT = 1.0
+
+HMAC_KEY_FILE_NAME = "hmac.key"
 
 def get_arguments():
     # Get the arguments of the script.
@@ -36,7 +48,7 @@ def get_arguments():
         # Validate port
         try:
             port = int(port_str)
-            if not (1 <= port <= 65535):
+            if not (MIN_PORT <= port <= MAX_PORT):
                 raise ValueError
         except ValueError:
             print("Error: Invalid port number (must be 1–65535).")
@@ -49,6 +61,9 @@ def create_session(client_host, server_host, port):
     # Create a new TCP Socket object, and connect to the server
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    client_socket = make_socket_tls(client_socket, server_host)
+
     try:
         client_socket.connect((server_host, port))
     except:
@@ -61,6 +76,33 @@ def create_session(client_host, server_host, port):
     client_socket.sendall(bytes(registration_request, encoding=ENCODING))
 
     return client_socket
+
+
+def get_hmac(file_name):
+    # Get the hmac key from a file.
+
+    with open(file_name, "r") as f:
+        key_b64 = f.read().strip()
+        hmac_key = base64.b64decode(key_b64)
+        return hmac_key
+
+
+def is_authorized_message(message, signature, hmac_key):
+    # Check if the current message is signed with the corresponding hmac key. 
+
+    expected_signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+    if hmac.compare_digest(expected_signature, signature): return True
+    else: return False
+
+
+def make_socket_tls(client_socket, server_host):
+    # Wrap with SSL context
+    context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    context.check_hostname = False  # because it's self-signed
+    context.verify_mode = ssl.CERT_NONE
+    secure_socket = context.wrap_socket(client_socket, server_hostname=server_host)
+    return secure_socket
+
 
 def execute_message(socket_object, message):
     # Execute a message if it exist.
@@ -76,15 +118,25 @@ def execute_message(socket_object, message):
     else:
         socket_object.sendall(bytes("Error with recieving message", encoding=ENCODING))
         return None
+
+
+def get_response(socket_object, hmac_key):
+    # Wait, and recieve the message from the server.
+    message = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+    signature = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
     
-def send_response(socket_object, result):
+    if not is_authorized_message(message, signature, hmac_key): return None
+    return message
+
+
+def send_response(socket_object, result, hmac_key):
     # Sent the stdout and stderr of the command back to ther server.
 
-    if result:
-        response = (result.stdout + result.stderr).strip()
-        socket_object.sendall(bytes(response, encoding=ENCODING))
-    else:
-        socket_object.sendall(bytes("", encoding=ENCODING))
+    response = (result.stdout + result.stderr).strip() if result else "hmac key don't match"
+    socket_object.send(bytes(response, encoding=ENCODING))
+
+    signature = hmac.new(hmac_key, response.encode(ENCODING), hashlib.sha256).hexdigest()
+    socket_object.send(bytes(signature, encoding=ENCODING))
 
 
 def stop_connection(socket_object):
@@ -96,23 +148,27 @@ def stop_connection(socket_object):
 def main():
 
     server_host, port = get_arguments()
+    hmac_key = get_hmac(HMAC_KEY_FILE_NAME)
 
     client_socket = create_session(CLIENT_HOST, server_host, port)
-    client_socket.settimeout(1.0)
+    client_socket.settimeout(CONNECTIONS_TIMEOUT)
     with client_socket:
         try:
             # Running until "stop" is sent from the server.
             while True:
                 try:
-                    # Wait, and recieve the message from the server.
-                    message = client_socket.recv(MAX_BYTES_REPONSE).decode(ENCODING)
+
+                    message = get_response(client_socket, hmac_key)
+
+                    if not message:
+                        send_response(client_socket, None, hmac_key)
+                        continue
 
                     # If the message is stop, stop the session.
-                    if message == STOP_WORD:
-                        break
+                    if message == STOP_WORD: break
                     
                     result = execute_message(client_socket, message)
-                    send_response(client_socket, result)
+                    send_response(client_socket, result, hmac_key)
                 except socket.timeout:
                     continue
 

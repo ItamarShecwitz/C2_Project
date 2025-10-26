@@ -664,3 +664,12 @@ operable program or batch file.
 2025-10-26 13:53:25,361 - 127.0.0.1 [1] - Sent: cd ..
 2025-10-26 13:53:25,391 - 127.0.0.1 [1] - Recived:  
 2025-10-26 13:53:26,967 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 14:28:20,181 - 0.0.0.0 [server] - Server Started
+2025-10-26 14:28:20,184 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 14:31:26,074 - 0.0.0.0 [server] - Server Started
+2025-10-26 14:31:26,074 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 14:31:36,153 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 14:31:40,450 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 14:37:18,107 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

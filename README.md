@@ -1,4 +1,4 @@
-# C2 Server
+# C2 Project
 
 This project implements a **simple Command-and-Control (C2)** pair:
 

@@ -582,3 +582,94 @@ operable program or batch file.
 2025-10-25 22:02:49,733 - 127.0.0.1 [1] - Sent: hostname
 2025-10-25 22:02:49,733 - 127.0.0.1 [1] - hmac key don't match
 2025-10-25 22:02:50,724 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 08:59:33,035 - 127.0.0.1 [server] - Server Started
+2025-10-26 08:59:33,035 - 127.0.0.1 [server] - Waiting for connections...
+2025-10-26 08:59:40,618 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 08:59:45,009 - 127.0.0.1 [1] - Sent: whoami
+2025-10-26 08:59:45,160 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-26 08:59:46,338 - 127.0.0.1 [1] - Sent: dir
+2025-10-26 08:59:46,430 - 127.0.0.1 [1] - Recived: Volume in drive C is OS
+ Volume Serial Number is D84D-2107
+
+ Directory of C:\Users\Itamar\Documents\Job\Porche\Porche_C2\client
+
+24/10/2025  18:09    <DIR>          .
+24/10/2025  11:28    <DIR>          ..
+24/10/2025  00:44    <DIR>          bin
+25/10/2025  21:12             5,470 client.py
+25/10/2025  21:02                44 hmac.key
+21/10/2025  20:15    <DIR>          include
+21/10/2025  23:23    <DIR>          lib
+21/10/2025  23:23                 3 lib64
+24/10/2025  00:44               201 pyvenv.cfg
+               4 File(s)          5,718 bytes
+               5 Dir(s)  685,997,428,736 bytes free
+2025-10-26 08:59:47,534 - 127.0.0.1 [1] - Sent: hostname
+2025-10-26 08:59:47,690 - 127.0.0.1 [1] - Recived: Itamars
+2025-10-26 08:59:48,702 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 08:59:50,088 - 127.0.0.1 [1] - Invalid client's id, Usage: use <client's id>
+2025-10-26 08:59:51,139 - 127.0.0.1 [1] - Session 1 set
+2025-10-26 08:59:53,338 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 08:59:54,396 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 09:07:42,331 - 0.0.0.0 [server] - Server Started
+2025-10-26 09:07:42,331 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 11:18:15,755 - 0.0.0.0 [server] - Server Started
+2025-10-26 11:18:15,759 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 11:18:31,937 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:18:37,033 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 11:18:37,989 - 127.0.0.1 [1] - Sent: whoami
+2025-10-26 11:18:38,144 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-26 11:18:40,458 - 127.0.0.1 [1] - Sent: hostname
+2025-10-26 11:18:40,605 - 127.0.0.1 [1] - Recived: Itamars
+2025-10-26 11:18:43,555 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:35:06,869 - 0.0.0.0 [server] - Server Started
+2025-10-26 11:35:06,871 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 11:35:16,017 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:35:19,770 - 127.0.0.1 [1] - Sent: whoami
+2025-10-26 11:35:19,899 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-26 11:35:25,932 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:36:31,763 - 0.0.0.0 [server] - Server Started
+2025-10-26 11:36:31,763 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 11:36:34,654 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:36:37,205 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 11:37:57,230 - 0.0.0.0 [server] - Server Started
+2025-10-26 11:37:57,230 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 13:29:30,397 - 0.0.0.0 [server] - Server Started
+2025-10-26 13:29:30,397 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 13:52:50,674 - 0.0.0.0 [server] - Server Started
+2025-10-26 13:52:50,674 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 13:53:01,956 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 13:53:04,016 - 127.0.0.1 [1] - Sent: hi
+2025-10-26 13:53:04,045 - 127.0.0.1 [1] - Recived: 'hi' is not recognized as an internal or external command,
+operable program or batch file.
+2025-10-26 13:53:04,956 - 127.0.0.1 [1] - Sent: whoami
+2025-10-26 13:53:05,007 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-26 13:53:06,201 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 13:53:13,857 - 127.0.0.1 [1] - Sent: whoami
+2025-10-26 13:53:13,909 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-26 13:53:15,730 - 127.0.0.1 [1] - Sent: hostname
+2025-10-26 13:53:15,774 - 127.0.0.1 [1] - Recived: Itamars
+2025-10-26 13:53:18,007 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 13:53:21,917 - 0.0.0.0 [server] - Server Started
+2025-10-26 13:53:21,917 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 13:53:23,394 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 13:53:25,361 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-26 13:53:25,391 - 127.0.0.1 [1] - Recived:  
+2025-10-26 13:53:26,967 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-26 14:28:20,181 - 0.0.0.0 [server] - Server Started
+2025-10-26 14:28:20,184 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 14:31:26,074 - 0.0.0.0 [server] - Server Started
+2025-10-26 14:31:26,074 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-26 14:31:36,153 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-26 14:31:40,450 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-26 14:37:18,107 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

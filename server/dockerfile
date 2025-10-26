@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY server.py .
+COPY default_hmac.key .
+COPY certs ./certs
+
+# default envs (can be overridden at run time)
+ENV SERVER_HOST=0.0.0.0
+ENV PORT=2222
+ENV CERTFILE=/app/certs/cert.pem
+ENV KEYFILE=/app/certs/key.pem
+ENV HMAC_KEY_FILE_NAME=/app/default_hmac.key
+ENV HMAC=""
+
+EXPOSE 2222
+
+CMD ["python", "server.py"]

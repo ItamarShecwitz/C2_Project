@@ -6,10 +6,17 @@ import ssl
 import base64
 import hmac
 import hashlib
+import os
+
+# env
+SERVER_HOST = os.environ.get("SERVER_HOST", "0.0.0.0")
+PORT = int(os.environ.get("PORT", "2222"))
+CERTFILE = os.environ.get("CERTFILE", "./certs/cert.pem")
+KEYFILE = os.environ.get("KEYFILE", "./certs/key.pem")
+HMAC_KEY_FILE_NAME = os.environ.get("HMAC_KEY_FILE_NAME", "default_hmac.key")
+HMAC_KEY_PARAMETER = os.environ.get("HMAC", "")
 
 # Global Constants
-SERVER_HOST = "127.0.0.1"
-PORT = 2222
 MAX_BYTES_REPONSE = 65536
 ENCODING = "utf-8"
 
@@ -34,9 +41,7 @@ LOG_FILE_NAME = "server.log"
 LOG_FORMAT = "%(asctime)s - %(address)s [%(session_id)s] - %(message)s"
 LOG_DEFAULT_LEVEL = logging.INFO
 
-CERTFILE = "certs/cert.pem"
-KEYFILE = "certs/key.pem"
-HMAC_KEY_FILE_NAME = "hmac.key"
+
 
 sessions = {}
 main_session_ready = threading.Event()
@@ -300,7 +305,7 @@ def main():
 
     # Create logger
     logger = create_logger()
-    hmac_key = get_hmac(HMAC_KEY_FILE_NAME)
+    hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)
     
 
     with create_tcp_socket(logger) as server_socket:

@@ -1,15 +1,19 @@
 import socket
 import subprocess
 import sys
-import ipaddress
 
 import ssl
 import base64
 import hmac
 import hashlib
+import os
+
+# env
+HMAC_KEY_PARAMETER = os.environ.get("HMAC", "")
+CLIENT_HOST = os.environ.get("CLIENT_HOST", "127.0.0.1")
 
 # Global Constants
-CLIENT_HOST = "127.0.0.1"
+
 MAX_BYTES_REPONSE = 65536
 ENCODING = 'utf-8'
 STOP_WORD = "stop"
@@ -24,7 +28,7 @@ MAX_PORT = 65535
 
 CONNECTIONS_TIMEOUT = 1.0
 
-HMAC_KEY_FILE_NAME = "hmac.key"
+HMAC_KEY_FILE_NAME = "default_hmac.key"
 
 def get_arguments():
     # Get the arguments of the script.
@@ -37,13 +41,6 @@ def get_arguments():
         exit()
     else:
         ip, port_str = sys.argv[HOST_INDEX], sys.argv[PORT_INDEX]
-
-        # Validate IP
-        try:
-            ipaddress.ip_address(ip)
-        except ValueError:
-            print(f"Error: Invalid IP address: {ip}")
-            exit()
 
         # Validate port
         try:
@@ -73,7 +70,11 @@ def create_session(client_host, server_host, port):
 
     # Creating and sending a registration request to the server (The request is the client's host).
     registration_request = client_host
-    client_socket.sendall(bytes(registration_request, encoding=ENCODING))
+
+    if registration_request:
+        client_socket.send(bytes(registration_request, encoding=ENCODING))
+    else:
+        client_socket.send(bytes("None", encoding=ENCODING))
 
     return client_socket
 
@@ -90,7 +91,7 @@ def get_hmac(file_name):
 def is_authorized_message(message, signature, hmac_key):
     # Check if the current message is signed with the corresponding hmac key. 
 
-    expected_signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest()
+    expected_signature = hmac.new(hmac_key, message.encode(ENCODING), hashlib.sha256).hexdigest().strip()
     if hmac.compare_digest(expected_signature, signature): return True
     else: return False
 
@@ -116,7 +117,7 @@ def execute_message(socket_object, message):
             socket_object.sendall(bytes(f"Error executing command: {e}", encoding=ENCODING))
             return None
     else:
-        socket_object.sendall(bytes("Error with recieving message", encoding=ENCODING))
+        socket_object.sendall(bytes("Empty message", encoding=ENCODING))
         return None
 
 
@@ -125,14 +126,15 @@ def get_response(socket_object, hmac_key):
     message = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
     signature = socket_object.recv(MAX_BYTES_REPONSE).decode(ENCODING)
     
-    if not is_authorized_message(message, signature, hmac_key): return None
+    if not is_authorized_message(message, signature, hmac_key):
+        return None
     return message
 
 
 def send_response(socket_object, result, hmac_key):
     # Sent the stdout and stderr of the command back to ther server.
-
-    response = (result.stdout + result.stderr).strip() if result else "hmac key don't match"
+    
+    response = (result.stdout + result.stderr).strip() if result.stdout or result.stderr else " "
     socket_object.send(bytes(response, encoding=ENCODING))
 
     signature = hmac.new(hmac_key, response.encode(ENCODING), hashlib.sha256).hexdigest()
@@ -148,7 +150,7 @@ def stop_connection(socket_object):
 def main():
 
     server_host, port = get_arguments()
-    hmac_key = get_hmac(HMAC_KEY_FILE_NAME)
+    hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)
 
     client_socket = create_session(CLIENT_HOST, server_host, port)
     client_socket.settimeout(CONNECTIONS_TIMEOUT)
@@ -168,6 +170,7 @@ def main():
                     if message == STOP_WORD: break
                     
                     result = execute_message(client_socket, message)
+
                     send_response(client_socket, result, hmac_key)
                 except socket.timeout:
                     continue

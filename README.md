@@ -26,35 +26,32 @@ For adding more clients, just open more terminals and run the command above.
 ### Requirements:
 - `Docker` or `Podman`
 
-For containerized setup, clone this repository and build the server image with:
+Pull the images with:
 ```
-cd server
-docker build -t c2-server:latest .
+docker pull itamarsh/c2-client:latest
+docker pull itamarsh/c2-server:latest
 ```
-Build the client image with:
-```
-cd client
-docker build -t c2-client:latest .
-```
-And open docker netwrok with:
+(You can also build the images manually, instructions below.)`
+Open docker netwrok with:
 ```
 docker network create c2-net
 ```
 Then from one terminal, open the server with:
 ```
-docker run -d --name c2-server --network c2-net c2-server
+docker run -it --rm --name c2-server --network c2-net docker.io/itamarsh/c2-server
 ```
 You can add those flags:
 -  `-e SERVER_HOST=<ip>` — for changing the server host.
 -  `-e PORT=<port>` — for changing the port (It wont be exposed tho).
 -  `-e HMAC=<hmac_key>` — for changing the HMAC key.
 
-
 And from a second terminal you can add as many clients as you want with:
 ```
-docker run -d --name c2-client --network c2-net c2-client
+docker run -d --rm --network c2-net docker.io/itamarsh/c2-client
 ```
-You can add the flag:  `-e HMAC=<hmac_key>` — for changing the HMAC key.
+You can add those flags:
+-  `-e CLIENT_HOST=<ip>` — for changing the client host.
+-  `-e HMAC=<hmac_key>` — for changing the HMAC key.
 And if you want to edit the server name and port, you can add at the end:
 ```
 python client.py <server_hostname> <port>
@@ -66,6 +63,7 @@ There are 3 special commands:
 -  **`stop`** — Stop the current session.
 -  **`sessions`** — Show the connected sessions.
 -  **`use <id>`** — Take session ID as argument, and switch to this sessions.
+
 # Protocol
 
 ### Establishing connection
@@ -98,6 +96,7 @@ There are 3 special commands:
     -   The server verifies the signature.
     -   If valid, the output is printed to the console.
     -   The server then waits for the next input.
+
 # Logging
 The server logs are printed to the screen, and saved to a file called `server.log` in the server's home directory.
 The logs are in the following format:
@@ -105,3 +104,20 @@ The logs are in the following format:
 [Date]  [Time] - [Client Hostname] [Client Session ID] - [Message]
 ```
 * For server logs, The `[Client Hostname]` field is set to the server's hostname, and the `[Client Session ID]` field is set to the word server.
+
+If you want to see the logs insinde a container, run:
+```
+docker exec c2-server cat server.log
+```
+
+## Building the images:
+If you want to build the images manually, clone this repository and build the server image with:
+```
+cd server
+docker build -t docker.io/itamarsh/c2-server:latest .
+```
+Build the client image with:
+```
+cd client
+docker build -t docker.io/itamarsh/c2-client:latest .
+```

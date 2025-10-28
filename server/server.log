@@ -681,3 +681,78 @@ operable program or batch file.
 2025-10-26 17:13:56,904 - 0.0.0.0 [server] - Waiting for connections...
 2025-10-26 17:14:02,661 - 0.0.0.0 [server] - Server Started
 2025-10-26 17:14:02,663 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:33:15,359 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:33:15,359 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:33:31,920 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:33:34,137 - 127.0.0.1 [1] - Sent: whoami
+2025-10-28 11:33:34,137 - 127.0.0.1 [1] - hmac key don't match
+2025-10-28 11:35:05,255 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:35:08,163 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:35:08,163 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:35:28,951 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:35:31,066 - 127.0.0.1 [1] - Sent: whoami
+2025-10-28 11:35:31,118 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-28 11:35:34,446 - 127.0.0.1 [1] - 
+* ID 1 - Host: 127.0.0.1
+
+2025-10-28 11:35:37,539 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:35:52,509 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:35:52,509 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:35:54,346 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:35:56,579 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:38:10,112 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:38:10,112 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:38:11,818 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:38:13,521 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:38:42,065 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:38:42,065 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:38:43,351 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:38:45,829 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:39:27,442 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:39:27,442 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:39:28,922 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:39:30,582 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:41:18,058 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:41:18,058 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:41:19,368 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:41:21,326 - 127.0.0.1 [1] - Sent: whoami
+2025-10-28 11:41:21,379 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-28 11:41:22,358 - 127.0.0.1 [1] - Sent: stop
+2025-10-28 11:41:22,358 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:41:39,968 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:41:39,968 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:41:43,258 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:41:47,348 - 127.0.0.1 [1] - Sent: whoami
+2025-10-28 11:41:47,401 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-28 11:41:49,016 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:41:50,054 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:42:43,571 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:42:43,571 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:42:47,903 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:42:52,643 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:42:53,683 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:43:07,145 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:43:07,145 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:43:08,632 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:43:11,818 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:43:11,845 - 127.0.0.1 [1] - Recived:  
+2025-10-28 11:43:13,427 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:43:13,455 - 127.0.0.1 [1] - Recived:  
+2025-10-28 11:43:40,459 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:43:45,774 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:43:45,774 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:43:48,763 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:43:50,831 - 127.0.0.1 [1] - Sent: whoami
+2025-10-28 11:43:50,871 - 127.0.0.1 [1] - Recived: itamars\itamar
+2025-10-28 11:43:54,551 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:43:54,574 - 127.0.0.1 [1] - Recived:  
+2025-10-28 11:43:56,028 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:44:16,646 - 0.0.0.0 [server] - Server Started
+2025-10-28 11:44:16,646 - 0.0.0.0 [server] - Waiting for connections...
+2025-10-28 11:44:18,010 - 127.0.0.1 [1] - Client connected: 127.0.0.1 (Session ID: 1)
+2025-10-28 11:44:22,650 - 127.0.0.1 [1] - Sent: cd .,
+2025-10-28 11:44:22,680 - 127.0.0.1 [1] - Recived: The system cannot find the path specified.
+2025-10-28 11:44:25,307 - 127.0.0.1 [1] - Sent: cd ..
+2025-10-28 11:44:25,334 - 127.0.0.1 [1] - Recived:  
+2025-10-28 11:44:27,077 - 127.0.0.1 [1] - Sent: stop
+2025-10-28 11:44:27,077 - 127.0.0.1 [1] - Client disconnected: 127.0.0.1 (Session ID: 1)

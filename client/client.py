@@ -136,8 +136,10 @@ def get_response(socket_object, hmac_key):
 def send_response(socket_object, result, hmac_key):
     # Sent the stdout and stderr of the command back to ther server.
     
+    if result: 
+        response = (result.stdout + result.stderr).strip() if result.stdout or result.stderr else " "
+    else: response = " "
     # Send response.
-    response = (result.stdout + result.stderr).strip() if result.stdout or result.stderr else " "
     socket_object.send(bytes(response, encoding=ENCODING))
 
     # Send hmac signature.

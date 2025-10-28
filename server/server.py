@@ -73,7 +73,7 @@ class Session():
 
                 # Get the command and if its a custom one, don't send it.
                 command, _ = get_message_command(message)
-                if not command or command == STOP_NAME or command == SESSIONS_NAME or command == USE_NAME: return message
+                if not command or command == SESSIONS_NAME or command == USE_NAME: return message
 
                 # Send message.
                 self.connection.send(bytes(message, encoding=ENCODING))
@@ -83,7 +83,7 @@ class Session():
                 self.connection.send(bytes(signature, encoding=ENCODING))
                 
                 # Check if the client is alive.
-                self.connection.send(b'') 
+                self.connection.send(b'')
 
                 print_log(logger, f"Sent: {message}", self, False)
             return message
@@ -314,7 +314,6 @@ def main():
     # Create logger
     logger = create_logger()
     hmac_key = HMAC_KEY_PARAMETER if HMAC_KEY_PARAMETER != "" else get_hmac(HMAC_KEY_FILE_NAME)
-    print(hmac_key)
 
     with create_tcp_socket(logger) as server_socket:
 
